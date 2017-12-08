@@ -5,16 +5,15 @@ namespace IHeardYouLikeRegisters.Operations
 {
     class OperationsFactory
     {
-        private static readonly Dictionary<string, Func<Operation>> OperationsMap = new Dictionary<string, Func<Operation>>
+        private static readonly Dictionary<string, Func<int, int, int>> OperationsMap = new Dictionary<string, Func<int, int, int>>
         {
-             { "inc", () => new IncOperation()},
-             { "dec", () => new DecOperation()}
+             { "inc", (a, b) => a + b },
+             { "dec", (a, b) => a - b }
         };
 
-        public static Operation GetOperator(string @operator)
+        public static Func<int, int, int> GetOperator(string @operator)
         {
-            var func = OperationsMap[@operator];
-            return func();
+            return OperationsMap[@operator];
         }
     }
 }

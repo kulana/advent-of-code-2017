@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace IHeardYouLikeRegisters
 {
-    class ExecutionContext
+    public class ExecutionContext
     {
         private readonly Dictionary<string, int> _context = new Dictionary<string, int>();
 

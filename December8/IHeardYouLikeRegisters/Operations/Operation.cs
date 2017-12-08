@@ -1,10 +1,17 @@
-﻿namespace IHeardYouLikeRegisters.Operations
+﻿using System;
+
+namespace IHeardYouLikeRegisters.Operations
 {
-    abstract class Operation
+    public class Operation
     {
         public string Variable { get; set; }
+        public Func<int, int, int> Operand { get; set; }
         public int Value { get; set; }
 
-        public abstract void Perform(ExecutionContext context); 
+        public void Perform(ExecutionContext context)
+        {
+            int currValue = context.GetValue(this.Variable);
+            context.SetValue(this.Variable, Operand(currValue, this.Value));
+        }
     }
 }

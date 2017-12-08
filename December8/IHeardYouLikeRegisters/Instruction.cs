@@ -3,7 +3,7 @@ using IHeardYouLikeRegisters.Operations;
 
 namespace IHeardYouLikeRegisters
 {
-    class Instruction
+    public class Instruction
     {
         public Operation Operation { get; set; }
         public Condition Condition { get; set; }

@@ -2,7 +2,7 @@
 
 namespace IHeardYouLikeRegisters.Conditions
 {
-    class Condition
+    public class Condition
     {
         public string Variable { get; set; }
         public Func<int, int, bool> Evaluator { get; set; }

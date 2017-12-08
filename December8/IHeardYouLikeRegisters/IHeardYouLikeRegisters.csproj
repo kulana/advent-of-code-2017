@@ -44,8 +44,6 @@
   <ItemGroup>
     <Compile Include="Conditions\EvaluatorFactory.cs" />
     <Compile Include="ExecutionContext.cs" />
-    <Compile Include="Operations\DecOperation.cs" />
-    <Compile Include="Operations\IncOperation.cs" />
     <Compile Include="Instruction.cs" />
     <Compile Include="Conditions\Condition.cs" />
     <Compile Include="Operations\Operation.cs" />

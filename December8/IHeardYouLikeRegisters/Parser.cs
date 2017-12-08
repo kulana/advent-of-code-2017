@@ -19,9 +19,12 @@ namespace IHeardYouLikeRegisters
         public Instruction Parse(string input)
         {
             var tokens = input.Split(' ');
-            var operation = OperationsFactory.GetOperator(tokens[1]);
-            operation.Variable = tokens[0];
-            operation.Value = int.Parse(tokens[2]);
+            var operation = new Operation()
+            {
+                Variable = tokens[0],
+                Operand = OperationsFactory.GetOperator(tokens[1]),
+                Value = int.Parse(tokens[2])
+            };
 
             var cond = new Condition()
             {
