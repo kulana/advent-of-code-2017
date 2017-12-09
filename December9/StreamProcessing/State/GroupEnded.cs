@@ -2,8 +2,6 @@
 
 namespace StreamProcessing.State
 {
-    //  , => None
-    //} => GroupEnded
     public class GroupEnded : BaseState
     {
         protected override IState Process(char nextChar, Context context)

@@ -2,9 +2,6 @@
 
 namespace StreamProcessing.State
 {
-    //    { => GroupStarted(levelScore+1)
-    //} => GroupEnded
-    //, => None
     public class None : BaseState
     {
         protected override IState Process(char nextChar, Context context)
