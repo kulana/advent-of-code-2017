@@ -14,7 +14,8 @@ namespace HexEd
             {
                 position.Move(Direction.GetDirection(move));
             }
-            Console.WriteLine(position.DetermineMinimumStepsFrom(new Position(0, 0)));
+            Console.WriteLine($"Minimum steps necessary to get to {position} = {position.DetermineMinimumStepsFrom(new Position(0, 0))}");
+            Console.WriteLine($"Furthest away = {position.MaxNumberOfSteps}");
         }
 
         static string GetFileContents(string path)

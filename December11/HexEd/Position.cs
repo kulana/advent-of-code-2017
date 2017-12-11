@@ -4,8 +4,13 @@ namespace HexEd
 {
     public class Position
     {
+
+        private static readonly Position StartPosition = new Position(0, 0);
+
         public int X { get; private set; }
         public int Y { get; private set; }
+
+        public int MaxNumberOfSteps { get; private set; } = 0;
 
         public Position(int x, int y)
         {
@@ -17,6 +22,9 @@ namespace HexEd
         {
             X = X + direction.X;
             Y = Y + direction.Y;
+
+            int neededSteps = DetermineMinimumStepsFrom(StartPosition);
+            MaxNumberOfSteps = Math.Max(MaxNumberOfSteps, neededSteps);
         }
 
         /// <summary>
