@@ -29,12 +29,13 @@ namespace DigitalPlumber
         {
             _reachableNodes = new SortedSet<int>();
             _visitedNodes = new SortedSet<int>();
+            // add start node  to list as described in puzzle explanation
             _reachableNodes.Add(startNode);
-            ProcessNode(startNode);
+            FindReachableNodes(startNode);
             return _reachableNodes.ToList();
         }
 
-        private void ProcessNode(int fromNode)
+        private void FindReachableNodes(int fromNode)
         {
             // return immediately if we already visited the node
             if (_visitedNodes.Contains(fromNode))
@@ -49,7 +50,7 @@ namespace DigitalPlumber
             {
                 _reachableNodes.Add(node);
                 // visit crrent node
-                ProcessNode(node);
+                FindReachableNodes(node);
             }
         }
 
@@ -69,11 +70,11 @@ namespace DigitalPlumber
         {
             var groups = new Dictionary<int, List<int>>();
             var initialNodeList = AllNodes;
-            Process(AllNodes, groups);
+            FindGroups(AllNodes, groups);
             return groups.Keys.Count;
         }
 
-        private void Process(IList<int> remainingNodesList, Dictionary<int, List<int>> groups)
+        private void FindGroups(IList<int> remainingNodesList, Dictionary<int, List<int>> groups)
         {
             // finished if list of remaining nodes is empty
             if (!remainingNodesList.Any())
@@ -86,9 +87,11 @@ namespace DigitalPlumber
             // remove all reachable nodes from the nodes still to process
             foreach (var node in reachableNodes)
             {
+                // remve so we do not process this node later
                 remainingNodesList.Remove(node);
             }
-            Process(remainingNodesList, groups);
+            // recursive call to find other groups in remaining node list
+            FindGroups(remainingNodesList, groups);
         }
     }
 }
