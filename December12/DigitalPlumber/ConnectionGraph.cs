@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DigitalPlumber
 {
@@ -12,9 +14,81 @@ namespace DigitalPlumber
             _graph[connDef.From] = connDef;
         }
 
-        public ConnectionDefinition GetDataForNode(int node)
+        private SortedSet<int> _reachableNodes;
+        private SortedSet<int> _visitedNodes;
+
+        /// <summary>
+        /// Get connection data for fromNode
+        /// add all  to-nodes to the list of unique reachable nodes
+        /// for each to-node repeat the same process
+        /// make sure we do not enter a loop by checking if the node to visit has already been visited
+        /// </summary>
+        /// <param name="fromNode"></param>
+        /// <returns></returns>
+        public IList<int> GetReachableNodesFor(int startNode)
         {
-            return _graph[node];
+            _reachableNodes = new SortedSet<int>();
+            _visitedNodes = new SortedSet<int>();
+            _reachableNodes.Add(startNode);
+            ProcessNode(startNode);
+            return _reachableNodes.ToList();
         }
-     }
+
+        private void ProcessNode(int fromNode)
+        {
+            // return immediately if we already visited the node
+            if (_visitedNodes.Contains(fromNode))
+            {
+                return;
+            }
+            // register current node as visited
+            _visitedNodes.Add(fromNode);
+            // obtain node connection data
+            var nodes = _graph[fromNode];
+            foreach (var node in nodes.To)
+            {
+                _reachableNodes.Add(node);
+                // visit crrent node
+                ProcessNode(node);
+            }
+        }
+
+        private IList<int> AllNodes => _graph.Keys.ToList();
+
+        /// <summary>
+        /// process all nodes
+        /// per node determine all nodes reachable via that node => add group
+        /// remove those nodes from list of nodes to process
+        /// take next node
+        /// per node determine all nodes reachable via that node => add group
+        /// remove those nodes from list of nodes to process
+        /// until no nodes left
+        /// </summary>
+        /// <returns></returns>
+        public int GetNumberOfGroups()
+        {
+            var groups = new Dictionary<int, List<int>>();
+            var initialNodeList = AllNodes;
+            Process(AllNodes, groups);
+            return groups.Keys.Count;
+        }
+
+        private void Process(IList<int> remainingNodesList, Dictionary<int, List<int>> groups)
+        {
+            // finished if list of remaining nodes is empty
+            if (!remainingNodesList.Any())
+            {
+                return;
+            }
+            var currentNode = remainingNodesList.First();
+            var reachableNodes = GetReachableNodesFor(currentNode);
+            groups[currentNode] = reachableNodes.ToList();
+            // remove all reachable nodes from the nodes still to process
+            foreach (var node in reachableNodes)
+            {
+                remainingNodesList.Remove(node);
+            }
+            Process(remainingNodesList, groups);
+        }
+    }
 }

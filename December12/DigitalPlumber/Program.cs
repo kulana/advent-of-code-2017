@@ -13,16 +13,20 @@ namespace DigitalPlumber
         {
             // Read in lines from file.
             var filePath = Directory.GetCurrentDirectory() + "/input.txt";
-            var connectionGraph = new ConnectionGraph();
-
+            var graph = new ConnectionGraph();
             foreach (string line in File.ReadLines(filePath))
             {
                 var connectionInfo = Parser.Parse(line);
-                connectionGraph.AddConnection(connectionInfo);
+                graph.AddConnection(connectionInfo);
             }
-            Algorithm algorithm = new Algorithm(connectionGraph);
-            var reachableNodes = algorithm.GetReachableNodesFor(0);
+            // first part of puzzle
+            var reachableNodes = graph.GetReachableNodesFor(0);
             Console.WriteLine($"Reachable groups for group 0 is {reachableNodes.Count}");
+
+            // second part of puzzle
+            var groups = graph.GetNumberOfGroups();
+            Console.WriteLine($"Total number of groups is {groups}");
+
         }
     }
 }
