@@ -1,65 +1,78 @@
-﻿namespace PacketScanners
+﻿using System;
+
+namespace PacketScanners
 {
-    class Firewall: IFirewall
+    class Firewall: IFirewall, ICloneable<IFirewall>
     {
         public int Depth { get; private set; }
         public int Range { get; private set; }
+        public int ScannerPosition { get; private set; }
+        public Direction ScannerDirection { get; private set; }
 
-        private int _scannerPosition;
-        private Direction _scannerDirection;
         private bool _hit = false;
 
         public Firewall(int depth, int range)
         {
             Depth = depth;
             Range = range;
-            _scannerPosition = 1;
-            _scannerDirection = Direction.Down;
+            ScannerPosition = 1;
+            ScannerDirection = Direction.Down;
+        }
+
+        public Firewall(int depth, int range, int scannerPosition, Direction scannerDirection) : this(depth, range)
+        {
+            ScannerPosition = scannerPosition;
+            ScannerDirection = scannerDirection;
         } 
 
-        // a visit means the packat is in the firewall (at position 1)
+        // a visit means the package is in the firewall at position 1
         public void Visit()
         {
-            _hit = (_scannerPosition == 1);
+            _hit = (ScannerPosition == 1);
         }
 
         public int Severity => _hit ? (Range * Depth) : 0;
 
+        public bool IsCaught => _hit;
+
         public override string ToString()
         {
-            return $"Range={Range}, Direction={_scannerDirection}, ScannerPosition={_scannerPosition}";
+            return $"Range={Range}, Direction={ScannerDirection}, ScannerPosition={ScannerPosition}";
         }
 
         // move scanner,
         // ugly logic here, there must be a more elegant way?
         public void MoveScanner()
         {
-            if (_scannerDirection == Direction.Down)
+            if (ScannerDirection == Direction.Down)
             {
-                if (_scannerPosition < Range)
+                if (ScannerPosition < Range)
                 {
-                    _scannerPosition++;
-                    return;
+                    ScannerPosition++;
                 }
                 else
                 {
-                    _scannerPosition--;
-                    _scannerDirection = Direction.Up;
+                    ScannerPosition--;
+                    ScannerDirection = Direction.Up;
                 }
             }
             else
             {
-                if (_scannerPosition > 1)
+                if (ScannerPosition > 1)
                 {
-                    _scannerPosition--;
-                    return;
+                    ScannerPosition--;
                 }
                 else
                 {
-                    _scannerPosition++;
-                    _scannerDirection = Direction.Down;
+                    ScannerPosition++;
+                    ScannerDirection = Direction.Down;
                 }
             }
+        }
+
+        public IFirewall Clone()
+        {
+            return new Firewall(Depth, Range, ScannerPosition, ScannerDirection);
         }
     }
 

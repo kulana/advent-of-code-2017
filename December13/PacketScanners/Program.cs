@@ -10,19 +10,28 @@ namespace PacketScanners
     {
         static void Main(string[] args)
         {
+            var firewallGroup = LoadFirewalls();
+            var caught = false;
+            do
+            {
+                firewallGroup.Visit();
+                caught = firewallGroup.IsCaught;
+            }
+            while (caught);
+        }
+
+        static FirewallGroup LoadFirewalls()
+        {
             var parser = new Parser();
             var firewallGroup = new FirewallGroup();
 
-            var filePath = Directory.GetCurrentDirectory() + "/input.txt";
+            var filePath = Directory.GetCurrentDirectory() + "/test.txt";
             var fileProcessor = new FileProcessor();
             fileProcessor.ReadFilePerLine(filePath, (line) =>
             {
                 firewallGroup.Add(Parser.Parse(line));
             });
-
-            // by visiting the group, we set the process in motion visiting all layers and moving the scanner
-            firewallGroup.Visit();
-            Console.WriteLine($"The severity is {firewallGroup.Severity}");
+            return firewallGroup;
         }
     }
 }

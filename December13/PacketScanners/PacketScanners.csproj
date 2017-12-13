@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FirewallGroup.cs" />
+    <Compile Include="ICloneable.cs" />
     <Compile Include="IFirewall.cs" />
     <Compile Include="EmptyFirewall.cs" />
     <Compile Include="Firewall.cs" />
@@ -54,6 +55,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="test.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="input.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -4,11 +4,11 @@ using System.Linq;
 
 namespace PacketScanners
 {
-    class FirewallGroup : IFirewall
+    class FirewallGroup
     {
         private List<IFirewall> _firewalls = new List<IFirewall>();
         private int _previousDepth = 0;
-        private int _layerIndex = 0;
+        private int _delay = 0;
 
         public int Severity => _firewalls.Aggregate(0, (total, fw) =>
                                     total + fw.Severity);
@@ -25,6 +25,12 @@ namespace PacketScanners
             _previousDepth = firewall.Depth;
         }
 
+        private void AddDelay()
+        {
+            _delay++;
+            MoveScanner();
+        }
+
         public void MoveScanner()
         {
             _firewalls.ForEach(fw => fw.MoveScanner());
@@ -32,15 +38,31 @@ namespace PacketScanners
 
         public void Visit()
         {
-            for (int layerIndex = 0; layerIndex < _firewalls.Count; layerIndex++)
+            IsCaught = false;
+            do
             {
-                // enter firewall with packet
-                _firewalls[layerIndex].Visit();
-                // move all scanners to next position
-                MoveScanner();
+                // copy original firewalls as seed for the next run
+                var originalFirewalls = new List<IFirewall>();
+                foreach (var fw in _firewalls)
+                {
+                    originalFirewalls.Add(fw.Clone());
+                }
+                for (int layerIndex = 0; layerIndex < _firewalls.Count; layerIndex++)
+                {
+                    // enter firewall with packet
+                    _firewalls[layerIndex].Visit();
+                    // move all scanners to next position
+                    MoveScanner();
+                }
+                IsCaught = _firewalls.Any(fw => fw.IsCaught);
+                Console.WriteLine($"Using delay {Delay}, severity is {Severity}, caught = {IsCaught}");
+                _firewalls = originalFirewalls;
+                AddDelay(); // add 1 picosecond delay to previous firewalls
             }
+            while (IsCaught);
         }
 
-        public IList<IFirewall> Firewalls => _firewalls;
+        public bool IsCaught { get; private set; }
+        public int Delay => _delay;
     }
 }
