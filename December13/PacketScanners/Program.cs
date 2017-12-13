@@ -25,7 +25,7 @@ namespace PacketScanners
             var parser = new Parser();
             var firewallGroup = new FirewallGroup();
 
-            var filePath = Directory.GetCurrentDirectory() + "/test.txt";
+            var filePath = Directory.GetCurrentDirectory() + "/input.txt";
             var fileProcessor = new FileProcessor();
             fileProcessor.ReadFilePerLine(filePath, (line) =>
             {
