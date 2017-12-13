@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Common;
+using System;
 using System.IO;
 
 namespace IHeardYouLikeRegisters
@@ -12,11 +13,13 @@ namespace IHeardYouLikeRegisters
 
             // Read in lines from file.
             var filePath = Directory.GetCurrentDirectory() + "/input.txt";
-            foreach (string line in File.ReadLines(filePath))
+            var fileProcessor = new FileProcessor();
+
+            fileProcessor.ReadFilePerLine(filePath, (line) =>
             {
                 var instruction = parser.Parse(line);
                 executionContext.Execute(instruction);
-            }
+            });
             Console.WriteLine($"The highest value in any register is {executionContext.HighestValue}");
         }
     }
