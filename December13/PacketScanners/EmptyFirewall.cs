@@ -11,6 +11,6 @@
 
         public void MoveScanner() { }
 
-        public void EnterLayer() { }
+        public void Visit() { }
     }
 }

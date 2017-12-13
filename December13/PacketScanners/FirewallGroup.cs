@@ -4,10 +4,11 @@ using System.Linq;
 
 namespace PacketScanners
 {
-    class FirewallGroup 
+    class FirewallGroup : IFirewall
     {
         private List<IFirewall> _firewalls = new List<IFirewall>();
         private int _previousDepth = 0;
+        private int _layerIndex = 0;
 
         public int Severity => _firewalls.Aggregate(0, (total, fw) =>
                                     total + fw.Severity);
@@ -22,6 +23,22 @@ namespace PacketScanners
             }
             _firewalls.Add(firewall);
             _previousDepth = firewall.Depth;
+        }
+
+        public void MoveScanner()
+        {
+            _firewalls.ForEach(fw => fw.MoveScanner());
+        }
+
+        public void Visit()
+        {
+            for (int layerIndex = 0; layerIndex < _firewalls.Count; layerIndex++)
+            {
+                // enter firewall with packet
+                _firewalls[layerIndex].Visit();
+                // move all scanners to next position
+                MoveScanner();
+            }
         }
 
         public IList<IFirewall> Firewalls => _firewalls;

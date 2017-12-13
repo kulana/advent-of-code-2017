@@ -4,6 +4,6 @@
     {
         int Severity { get; }
         void MoveScanner();
-        void EnterLayer();
+        void Visit();
     }
 }

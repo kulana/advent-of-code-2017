@@ -20,17 +20,9 @@ namespace PacketScanners
                 firewallGroup.Add(Parser.Parse(line));
             });
 
-            var firewalls = firewallGroup.Firewalls.ToList();
-            for (int layerIndex = 0; layerIndex < firewalls.Count; layerIndex++)
-            {
-                // enter firewall with packet
-                firewalls[layerIndex].EnterLayer();
-                // move all scanners to next position
-                firewalls.ForEach(fw => fw.MoveScanner());
-            }
-            int severity = firewalls.Aggregate(0, (total, fw) =>
-                                    total + fw.Severity);
-            Console.WriteLine($"The severity is {severity}");
+            // by visiting the group, we set the process in motion visiting all layers and moving the scanner
+            firewallGroup.Visit();
+            Console.WriteLine($"The severity is {firewallGroup.Severity}");
         }
     }
 }

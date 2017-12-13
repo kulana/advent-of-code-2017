@@ -18,7 +18,7 @@
         } 
 
         // a visit means the packat is in the firewall (at position 1)
-        public void EnterLayer()
+        public void Visit()
         {
             _hit = (_scannerPosition == 1);
         }
