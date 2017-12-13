@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HexEd", "December11\HexEd\H
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DigitalPlumber", "December12\DigitalPlumber\DigitalPlumber.csproj", "{38692FBC-C816-4F18-BEF4-099822E6EFF7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{BE849405-F8D8-4A2B-9F1C-DDE003EBE090}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{38692FBC-C816-4F18-BEF4-099822E6EFF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{38692FBC-C816-4F18-BEF4-099822E6EFF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{38692FBC-C816-4F18-BEF4-099822E6EFF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE849405-F8D8-4A2B-9F1C-DDE003EBE090}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE849405-F8D8-4A2B-9F1C-DDE003EBE090}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE849405-F8D8-4A2B-9F1C-DDE003EBE090}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE849405-F8D8-4A2B-9F1C-DDE003EBE090}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
