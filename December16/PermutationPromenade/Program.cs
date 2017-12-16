@@ -17,14 +17,14 @@ namespace PermutationPromenade
             var moves = new List<DanceMove>();
             var memory = new List<string>();
 
-            // treat programs as a list of numbers, those are easier to replace
-            var bytes = Encoding.ASCII.GetBytes("abcdefghijklmnop").ToList();
             foreach (var value in input.Split(','))
             {
                 moves.Add(Parser.Parse(value));
             }
 
-            bytes = Encoding.ASCII.GetBytes("abcdefghijklmnop").ToList();
+
+            // treat programs as a list of numbers, those are easier to replace
+            var bytes = Encoding.ASCII.GetBytes("abcdefghijklmnop").ToList();
             var numIterations = 1000000000;
             int i = 1;
             while (i <= numIterations)
@@ -40,7 +40,7 @@ namespace PermutationPromenade
                     break;
                 }
                 else {
-                    memory.Add(Encoding.UTF8.GetString(bytes.ToArray()));
+                    memory.Add(result);
                     i++;
                 }
             }
