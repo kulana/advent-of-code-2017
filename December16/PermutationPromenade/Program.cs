@@ -30,8 +30,8 @@ namespace PermutationPromenade
             while (i <= numIterations)
             {
                 moves.ForEach(move => move.Perform(bytes));
-                Console.WriteLine($"Result for iteration {i} = {Encoding.UTF8.GetString(bytes.ToArray())}");
                 string result = Encoding.UTF8.GetString(bytes.ToArray());
+                Console.WriteLine($"Result for iteration {i} = {result}");
                 if (memory.Contains(result))
                 {
                     Console.WriteLine($"Same string after {i} iterations");
