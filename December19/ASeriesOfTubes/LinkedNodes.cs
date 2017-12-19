@@ -39,16 +39,19 @@ namespace ASeriesOfTubes
 
         public string Visit(Direction direction)
         {
+            int numSteps = 0;
             var result = new StringBuilder();
             var currentNode = StartNode;
             while (currentNode != null)
             {
                 result.Append(currentNode);
                 var data = currentNode.GetNextNode(this, direction);
+                numSteps++;
                 currentNode = data.Item1;
                 direction = data.Item2;
             }
             result.AppendLine();
+            result.AppendLine($"Number of steps = {numSteps}");
             return result.ToString();
         }
     }
