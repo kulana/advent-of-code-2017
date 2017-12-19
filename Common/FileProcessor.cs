@@ -13,6 +13,14 @@ namespace Common
             }
         }
 
+        public void ReadFilePerLine(string path, int lineNumber, Action<int, string> action)
+        {
+            foreach (string line in File.ReadLines(path))
+            {
+                action(lineNumber, line);
+            }
+        }
+
         public string ReadFileToEnd(string path)
         {
             try
