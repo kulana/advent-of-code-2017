@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParticleSwarm
 {
@@ -18,5 +14,7 @@ namespace ParticleSwarm
             Velocity = velocity;
             Acceleration = acceleration;
         }
+
+        public int ManhattanDistance => Math.Abs(Position.X) + Math.Abs(Position.Y) + Math.Abs(Position.Z);
     }
 }
