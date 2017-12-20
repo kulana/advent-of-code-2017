@@ -13,7 +13,11 @@ namespace ASeriesOfTubes
             Y = y;
         }
 
-        public abstract Tuple<Node, Direction> GetNextNode(LinkedNodes nodes, Direction Direction);
+        public virtual Tuple<Node, Direction> GetNextNode(LinkedNodes nodes, Direction direction)
+        {
+            var newCoords = direction.NewCoordinates(X, Y);
+            return Tuple.Create(nodes.GetNodeAt(newCoords.Item1, newCoords.Item2), direction);
+        }
 
         public override string ToString()
         {

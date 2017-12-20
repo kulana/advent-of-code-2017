@@ -19,22 +19,19 @@ namespace ASeriesOfTubes
         };
 
         private string Title { get; }
-        private Func<int, int, Tuple<int, int>> CoordinatesFunc { get; }
+        private Func<int, int, Tuple<int, int>> NewCoordinatesFunction { get; }
 
-        private Direction(string title, Func<int, int, Tuple<int, int>> coordinatesFunc)
+        private Direction(string title, Func<int, int, Tuple<int, int>> newCoordinatesFunction)
         {
             Title = title;
-            CoordinatesFunc = coordinatesFunc;
+            NewCoordinatesFunction = newCoordinatesFunction;
         }
 
-        public Direction Reverse()
-        {
-            return _reverseMap[this];
-        }
+        public Direction Reverse => _reverseMap[this];
 
         public Tuple<int, int> NewCoordinates(int x, int y)
         {
-            return CoordinatesFunc(x, y);
+            return NewCoordinatesFunction(x, y);
         }
 
         public override bool Equals(object obj)

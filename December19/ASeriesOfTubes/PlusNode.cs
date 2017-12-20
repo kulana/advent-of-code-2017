@@ -18,8 +18,8 @@ namespace ASeriesOfTubes
                 { Direction.S, Direction.S.NewCoordinates(X, Y) },
                 { Direction.W, Direction.W.NewCoordinates(X, Y) }
             };
-            // remove reverse direction from options
-            dirList.Remove(direction.Reverse());
+            // remove reverse direction from options, we do not go where we came from
+            dirList.Remove(direction.Reverse);
             // now take first option for which there exists a valid node
             foreach (var dir in dirList.Keys)
             {
@@ -31,7 +31,7 @@ namespace ASeriesOfTubes
                     return Tuple.Create(node, dir);
                 }
             }
-            return null;
+            throw new Exception($"Unable to determine new node from node {this.X},{this.Y}");
         }
     }
 }
