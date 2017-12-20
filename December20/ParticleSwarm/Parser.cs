@@ -6,10 +6,10 @@ namespace ParticleSwarm
     {
         private const string Pattern = @"\w=<(?<x>-?\d+),(?<y>-?\d+),(?<z>-?\d+)>";
 
-        public Particle Parse(string line)
+        public Particle Parse(int particleIndex, string line)
         {
             MatchCollection matches = Regex.Matches(line, Pattern, RegexOptions.IgnorePatternWhitespace);
-            return new Particle(GetSpecs(matches[0].Groups), GetSpecs(matches[1].Groups), GetSpecs(matches[2].Groups));
+            return new Particle(particleIndex, GetSpecs(matches[0].Groups), GetSpecs(matches[1].Groups), GetSpecs(matches[2].Groups));
         }
 
         private Specs3D GetSpecs(GroupCollection values)
