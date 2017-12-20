@@ -1,10 +1,6 @@
 ﻿using Common;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParticleSwarm
 {
@@ -45,6 +41,8 @@ namespace ParticleSwarm
                 tick++;
             }
             Console.WriteLine($"Closest particle is {closestParticle.Id} after {tick} ticks");
+            Console.WriteLine($"Remaining particles is {swarm.Particles(p => p.IsAlive).Count}");
+
         }
     }
 }

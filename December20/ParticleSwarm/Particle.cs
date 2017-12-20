@@ -2,12 +2,14 @@
 
 namespace ParticleSwarm
 {
-    public  class Particle
+    public class Particle
     {
         public int Id { get; private set; }
         public Specs3D Position { get; set; }
         public Specs3D Velocity { get; set; }
         public Specs3D Acceleration { get; set; }
+
+        public bool IsAlive { get; set; }
 
         public Particle(int id, Specs3D position, Specs3D velocity, Specs3D acceleration)
         {
@@ -15,6 +17,7 @@ namespace ParticleSwarm
             Position = position;
             Velocity = velocity;
             Acceleration = acceleration;
+            IsAlive = true;
         }
 
         //Increase the X velocity by the X acceleration.
@@ -32,6 +35,11 @@ namespace ParticleSwarm
             Position.X += Velocity.X;
             Position.Y += Velocity.Y;
             Position.Z += Velocity.Z;
+        }
+
+        public string GetKey()
+        {
+            return $"{Position.X},{Position.Y},{Position.Z}";
         }
 
         public int ManhattanDistance => Math.Abs(Position.X) + Math.Abs(Position.Y) + Math.Abs(Position.Z);
