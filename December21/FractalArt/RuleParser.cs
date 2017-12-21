@@ -2,7 +2,7 @@
 
 namespace FractalArt
 {
-    public class Parser
+    public class RuleParser
     {
         private const string Pattern = @"(?<matchPattern>[.#\/]+) => (?<conversionPattern>[.#\/]+)";
 

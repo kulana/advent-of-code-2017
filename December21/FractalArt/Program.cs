@@ -1,4 +1,5 @@
 ﻿using Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -8,17 +9,25 @@ namespace FractalArt
     {
         static void Main(string[] args)
         {
-            var parser = new Parser();
-
             // Read in lines from file.
-            var filePath = Directory.GetCurrentDirectory() + "/rules.txt";
+            var rulesPath = Directory.GetCurrentDirectory() + "/rules.txt";
             var fileProcessor = new FileProcessor();
             var rules = new List<EnhancementRule>();
-            fileProcessor.ReadFilePerLine(filePath, (line) =>
+            var ruleParser = new RuleParser();
+            fileProcessor.ReadFilePerLine(rulesPath, (line) =>
             {
-                var rule = parser.Parse(line);
+                var rule = ruleParser.Parse(line);
                 rules.Add(rule);
             });
+
+            // read initial pattern
+            var patternPath = Directory.GetCurrentDirectory() + "/initialPattern.txt";
+            var pattern = fileProcessor.ReadFileToEnd(patternPath).Replace("\r\n", "/");
+            var initialSquare = new Square(pattern);
+
+            // execute program
+            int i = 0;
+            Console.WriteLine($"Number of pixels on after {i} iterations = {initialSquare.PixelsOn}");
         }
     }
 }

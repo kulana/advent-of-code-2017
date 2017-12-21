@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace FractalArt
 {
@@ -16,5 +17,18 @@ namespace FractalArt
         }
 
         public int Size => _contents.Count;
+
+        public int PixelsOn
+        {
+            get
+            {
+                int count = 0;
+                foreach (var row in _contents)
+                {
+                    count += row.Where(c => c == '#').Count();
+                }
+                return count;
+            }
+        }
     }
 }
