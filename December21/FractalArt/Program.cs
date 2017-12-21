@@ -23,11 +23,17 @@ namespace FractalArt
             // read initial pattern
             var patternPath = Directory.GetCurrentDirectory() + "/initialPattern.txt";
             var pattern = fileProcessor.ReadFileToEnd(patternPath).Replace("\r\n", "/");
-            var initialSquare = new Square(pattern);
+            var square = new Square(pattern);
 
             // execute program
+            var algorithm = new Algorithm(rules);
             int i = 0;
-            Console.WriteLine($"Number of pixels on after {i} iterations = {initialSquare.PixelsOn}");
+            while (i < 5)
+            {
+                square = algorithm.Apply(square);
+                i++;
+            }
+            Console.WriteLine($"Number of pixels on after {i} iterations = {square.PixelsOn}");
         }
     }
 }

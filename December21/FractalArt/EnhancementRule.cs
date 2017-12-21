@@ -24,10 +24,14 @@ namespace FractalArt
         public bool IsMatch(Square square)
         {
             // check if the square, rotated or flipped, matches the current rule
-            return true;
+            return (_match.Dimension == square.Dimension);
         }
 
-        public bool IsApplicable(int forSize) => (forSize == _match.Size);
+        public bool IsApplicableTo(Square square) => (square.Dimension == _match.Dimension);
 
+        public Square GetConversion()
+        {
+            return _conversion;
+        }
     }
 }
