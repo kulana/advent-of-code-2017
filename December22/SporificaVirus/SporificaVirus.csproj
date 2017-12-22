@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Carrier.cs" />
+    <Compile Include="Puzzle1DirectionStrategy.cs" />
     <Compile Include="Puzzle2DirectionStrategy.cs" />
     <Compile Include="IDirectionStrategy.cs" />
     <Compile Include="States\CellState.cs" />

@@ -6,14 +6,7 @@ namespace SporificaVirus.States
     {
         protected abstract string Title { get; } 
 
-        private readonly Action _action;
-
-        public CellState(Action action)
-        {
-            _action = action;
-        }
-
-        public abstract CellState Change(Action action);
+        public abstract CellState Change();
 
         public override bool Equals(object obj)
         {
@@ -29,5 +22,7 @@ namespace SporificaVirus.States
         {
             return Title.GetHashCode();
         }
+
+        public virtual bool IsInfected => false;
     }
 }

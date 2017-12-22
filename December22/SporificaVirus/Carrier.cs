@@ -22,16 +22,18 @@ namespace SporificaVirus
         public void VisitCell()
         {
             //get current cell data from grid and determine new direction
-            var cell = _grid.GetCell(_position, InfectedAction);
+            var cell = _grid.GetCell(_position);
             _currentDirection = _directionStrategy.NewDirection(cell, _currentDirection);
-            cell.State.Change(InfectedAction);
+            cell.State.Change();
+            if (cell.State.IsInfected)
+            {
+                InfectedCount++;
+            }
         }
 
         public void MoveForward()
         {
             _position = _currentDirection.Move(_position);
         }
-
-        private void InfectedAction() => InfectedCount++;
     }
 }
