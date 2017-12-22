@@ -9,11 +9,5 @@
         {
             Position = position;
         }
-
-        public void Visit(Carrier carrier)
-        {
-            Infected = !Infected;
-
-        }
     }
 }

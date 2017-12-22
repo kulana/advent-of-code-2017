@@ -13,8 +13,7 @@ namespace SporificaVirus
         static void Main(string[] args)
         {
             var grid = InitializeGrid();
-            var gridCenter = grid.Center();
-            var carrier = new Carrier(grid, gridCenter, Direction.N);
+            var carrier = new Carrier(grid, grid.Center(), Direction.N);
             for (int step = 1; step <= 10000; step++)
             {
                 carrier.VisitCell();

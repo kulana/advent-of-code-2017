@@ -3,25 +3,23 @@
     public class Carrier
     {
         private readonly Grid _grid;
-        public Direction Direction { get; private set; }
-        public Position Position { get; private set; }
+        private Direction _direction;
+        private Position _position;
 
-        public int InfectedCount { get; private set; }
+        public int InfectedCount { get; private set; } = 0;
 
         public Carrier(Grid grid, Position startPosition, Direction facing)
         {
             _grid = grid;
-            Position = startPosition;
-            Direction = facing;
-            InfectedCount = 0;
+            _position = startPosition;
+            _direction = facing;
         }
 
         public void VisitCell()
         {
-            //get current cell data from grid
-            var cell = _grid.GetCell(this.Position);
-            var newDirection = (cell.Infected) ? Direction.TurnRight() : Direction.TurnLeft();
-            Direction = newDirection;
+            //get current cell data from grid and determine new direction
+            var cell = _grid.GetCell(_position);
+            _direction = (cell.Infected) ? _direction.TurnRight() : _direction.TurnLeft();
             if (!cell.Infected)
             {
                 cell.Infected = true;
@@ -35,7 +33,7 @@
 
         public void MoveForward()
         {
-            Position = Direction.Move(this.Position, this.Direction);
+            _position = _direction.Move(_position, _direction);
         }
     }
 }
