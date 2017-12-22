@@ -12,6 +12,19 @@ namespace SporificaVirus
     {
         static void Main(string[] args)
         {
+            var grid = InitializeGrid();
+            var gridCenter = grid.Center();
+            var carrier = new Carrier(grid, gridCenter, Direction.N);
+            for (int step = 1; step <= 10000; step++)
+            {
+                carrier.VisitCell();
+                carrier.MoveForward();
+            }
+            Console.WriteLine($"Number of cells infected = {carrier.InfectedCount}");
+        }
+
+        private static Grid InitializeGrid()
+        {
             // load initial grid
             var parser = new Parser();
 
@@ -25,7 +38,7 @@ namespace SporificaVirus
                 parser.Parse(grid, yPosition, line);
                 yPosition++;
             });
-
+            return grid;
         }
     }
 }
