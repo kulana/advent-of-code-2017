@@ -1,13 +1,20 @@
-﻿namespace SporificaVirus
+﻿using SporificaVirus.States;
+using System;
+
+namespace SporificaVirus
 {
     public class GridCell
     {
-        public bool Infected { get; set; }
+        public CellState State { get; set; }
         public Position Position { get; private set; }
 
-        public GridCell(Position position)
+        public GridCell(Position position) : this(position, () => { })
+        { }
+
+        public GridCell(Position position, Action infectedAction)
         {
             Position = position;
+            State = new Clean(infectedAction);
         }
     }
 }

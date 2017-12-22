@@ -1,39 +1,37 @@
-﻿namespace SporificaVirus
+﻿using System;
+
+namespace SporificaVirus
 {
     public class Carrier
     {
         private readonly Grid _grid;
-        private Direction _direction;
+        private Direction _currentDirection;
         private Position _position;
+        private readonly IDirectionStrategy _directionStrategy;
 
         public int InfectedCount { get; private set; } = 0;
 
-        public Carrier(Grid grid, Position startPosition, Direction facing)
+        public Carrier(Grid grid, Position startPosition, Direction facing, IDirectionStrategy directionStrategy)
         {
             _grid = grid;
             _position = startPosition;
-            _direction = facing;
+            _currentDirection = facing;
+            _directionStrategy = directionStrategy;
         }
 
         public void VisitCell()
         {
             //get current cell data from grid and determine new direction
-            var cell = _grid.GetCell(_position);
-            _direction = (cell.Infected) ? _direction.TurnRight() : _direction.TurnLeft();
-            if (!cell.Infected)
-            {
-                cell.Infected = true;
-                InfectedCount++;
-            }
-            else
-            {
-                cell.Infected = false;
-            }
+            var cell = _grid.GetCell(_position, InfectedAction);
+            _currentDirection = _directionStrategy.NewDirection(cell, _currentDirection);
+            cell.State.Change(InfectedAction);
         }
 
         public void MoveForward()
         {
-            _position = _direction.Move(_position);
+            _position = _currentDirection.Move(_position);
         }
+
+        private void InfectedAction() => InfectedCount++;
     }
 }

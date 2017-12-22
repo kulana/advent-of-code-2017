@@ -13,9 +13,10 @@ namespace SporificaVirus
         static void Main(string[] args)
         {
             var grid = InitializeGrid();
-            var carrier = new Carrier(grid, grid.Center(), Direction.N);
-            for (int step = 1; step <= 10000; step++)
+            var carrier = new Carrier(grid, grid.Center(), Direction.N, new Puzzle2DirectionStrategy());
+            for (int step = 1; step <= 10000000; step++)
             {
+                Console.WriteLine(step);
                 carrier.VisitCell();
                 carrier.MoveForward();
             }

@@ -28,13 +28,13 @@ namespace SporificaVirus
             return new Position((_maxX / 2), (_maxY / 2));
         }
 
-        public GridCell GetCell(Position position)
+        public GridCell GetCell(Position position, Action infectedAction)
         {
             var key = CellKey(position);
             if (!_grid.ContainsKey(key))
             {
                 // create new uninfected cell on position
-                var newCell = new GridCell(position);
+                var newCell = new GridCell(position, infectedAction);
                 Add(newCell);
                 return newCell;
             }

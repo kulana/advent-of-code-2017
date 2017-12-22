@@ -1,4 +1,6 @@
-﻿namespace SporificaVirus
+﻿using SporificaVirus.States;
+
+namespace SporificaVirus
 {
     public class Parser
     {
@@ -10,7 +12,14 @@
             foreach (var c in line)
             {
                 var cell = new GridCell(new Position(xPosition, yPosition));
-                cell.Infected = (c.Equals(InfectedPattern));
+                if (c.Equals(InfectedPattern))
+                {
+                    cell.State = new Infected();
+                }
+                else
+                {
+                    cell.State = new Clean();
+                }
                 grid.Add(cell);
                 xPosition++;
             }

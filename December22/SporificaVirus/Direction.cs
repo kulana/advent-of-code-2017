@@ -16,6 +16,14 @@ namespace SporificaVirus
             Direction.N, Direction.E, Direction.S, Direction.W
         };
 
+        private static IDictionary<Direction, Direction> _reverseMapping = new Dictionary<Direction, Direction>()
+        {
+            {Direction.N, Direction.S },
+            {Direction.E, Direction.W },
+            {Direction.S, Direction.N },
+            {Direction.W, Direction.E },
+        };
+
         private string Title { get; }
         private Func<Position, Position> MoveFunction { get; }
 
@@ -24,6 +32,8 @@ namespace SporificaVirus
             Title = title;
             MoveFunction = moveFunction;
         }
+
+        public Direction Reverse => _reverseMapping[this];
 
         public Position Move(Position fromPosition)
         {
