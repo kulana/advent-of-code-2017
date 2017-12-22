@@ -25,9 +25,9 @@ namespace SporificaVirus
             MoveFunction = moveFunction;
         }
 
-        public Position Move(Position fromPosition, Direction direction)
+        public Position Move(Position fromPosition)
         {
-            return direction.MoveFunction(fromPosition);
+            return this.MoveFunction(fromPosition);
         }
 
         public Direction TurnLeft()

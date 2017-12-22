@@ -33,7 +33,7 @@
 
         public void MoveForward()
         {
-            _position = _direction.Move(_position, _direction);
+            _position = _direction.Move(_position);
         }
     }
 }
