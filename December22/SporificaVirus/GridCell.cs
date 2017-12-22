@@ -15,5 +15,12 @@ namespace SporificaVirus
         }
 
         public GridCell(Position position) : this(position, new Clean()) { }
+
+        public void UpdateState()
+        {
+            State = State.Change();
+        }
+
+        public bool IsInfected => State.IsInfected;
     }
 }

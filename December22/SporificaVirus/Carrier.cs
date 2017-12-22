@@ -24,8 +24,8 @@ namespace SporificaVirus
             //get current cell data from grid and determine new direction
             var cell = _grid.GetCell(_position);
             _currentDirection = _directionStrategy.NewDirection(cell, _currentDirection);
-            cell.State = cell.State.Change();
-            if (cell.State.IsInfected)
+            cell.UpdateState();
+            if (cell.IsInfected)
             {
                 InfectedCount++;
             }
