@@ -21,11 +21,11 @@ namespace FractalArt
             for (int i = 0; i < subSquares.Count; i++)
             {
                 var subSquare = subSquares[i];
-                var rule = _rules.Where(r => r.IsApplicableTo(subSquare)).FirstOrDefault(r => r.IsMatch(subSquare));
+                var rule = _rules.FirstOrDefault(r => r.IsMatch(subSquare));
                 if (rule != null)
                 {
                     // replace subsquare by the rule conversion output
-                    converted.Add(rule.GetConversion());
+                    converted.Add(rule.Conversion);
                 }
             }
             // combine subsquares back into 1 square

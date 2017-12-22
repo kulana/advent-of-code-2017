@@ -4,19 +4,11 @@ namespace FractalArt
 {
     public class EnhancementRule
     {
-        private readonly Square _match;
-        private readonly Square _conversion;
+        private readonly string _match;
+        private readonly string _conversion;
 
-        public EnhancementRule(Square match, Square conversion)
+        public EnhancementRule(string match, string conversion)
         {
-            if (match == null)
-            {
-                throw new ArgumentNullException(nameof(match));
-            }
-            if (conversion == null)
-            {
-                throw new ArgumentNullException(nameof(conversion));
-            }
             _match = match;
             _conversion = conversion;
         }
@@ -24,14 +16,9 @@ namespace FractalArt
         public bool IsMatch(Square square)
         {
             // check if the square, rotated or flipped, matches the current rule
-            return (_match.Dimension == square.Dimension);
+            return (square.Matches(_match));
         }
 
-        public bool IsApplicableTo(Square square) => (square.Dimension == _match.Dimension);
-
-        public Square GetConversion()
-        {
-            return _conversion;
-        }
+        public Square Conversion => new Square(_conversion);
     }
 }

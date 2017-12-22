@@ -14,8 +14,8 @@ namespace FractalArt
 
         private EnhancementRule CreateRule(GroupCollection groups)
         {
-            var match = new Square(groups["matchPattern"].Value);
-            var conversion = new Square(groups["conversionPattern"].Value);
+            var match = groups["matchPattern"].Value;
+            var conversion = groups["conversionPattern"].Value;
             return new EnhancementRule(match, conversion);
         }
     }
