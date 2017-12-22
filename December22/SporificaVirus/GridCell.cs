@@ -8,10 +8,12 @@ namespace SporificaVirus
         public CellState State { get; set; }
         public Position Position { get; private set; }
 
-        public GridCell(Position position)
+        public GridCell(Position position, CellState state)
         {
             Position = position;
-            State = new Clean();
+            State = state;
         }
+
+        public GridCell(Position position) : this(position, new Clean()) { }
     }
 }

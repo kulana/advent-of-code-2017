@@ -11,14 +11,14 @@ namespace SporificaVirus
             int xPosition = 0;
             foreach (var c in line)
             {
-                var cell = new GridCell(new Position(xPosition, yPosition));
+                GridCell cell;
                 if (c.Equals(InfectedPattern))
                 {
-                    cell.State = new Infected();
+                    cell = new GridCell(new Position(xPosition, yPosition), new Infected());
                 }
                 else
                 {
-                    cell.State = new Clean();
+                    cell = new GridCell(new Position(xPosition, yPosition));
                 }
                 grid.Add(cell);
                 xPosition++;

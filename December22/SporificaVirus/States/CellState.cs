@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SporificaVirus.States
+﻿namespace SporificaVirus.States
 {
     public abstract class CellState
     {
